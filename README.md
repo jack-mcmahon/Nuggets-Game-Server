@@ -8,8 +8,6 @@ Each player is randomly dropped into a room when joining the game.
 Players move about, collecting nuggets when they move onto a pile.
 When all gold nuggets are collected, the game ends and a summary is printed.
 
-## Materials provided
+## Project Overview
 
-See the [support library](support/README.md) for some useful modules.
-
-See the [maps](maps/README.md) for some draft maps.
+This was the final project for CS 50: Software Design and Implementation. I worked with a team of 3 other students to design and implement the game by building server and client modules. My role in the project largely focused on building out code in the main server program as well as creating a "player" module to store information for each player, their game statistics, and their field of vision.
