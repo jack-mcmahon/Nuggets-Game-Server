@@ -1,0 +1,924 @@
+
+HOSTNAME=$1
+PORT=$2
+NAME=test
+
+################ erroneous arguments ################
+
+# 0 args
+./client
+START OF LOG
+usage: too few (or too many) arguments 0
+usage: ./client hostname port [yourname]
+
+# 1 arg
+./client $HOSTNAME
+START OF LOG
+usage: too few (or too many) arguments 1
+usage: ./client hostname port [yourname]
+
+# 4 args
+./client $HOSTNAME $PORT $NAME extraArgument
+START OF LOG
+usage: too few (or too many) arguments 4
+usage: ./client hostname port [yourname]
+
+# bad hostname - assumes 'badhost' does not exist
+./client badhost $PORT $NAME
+START OF LOG
+client on port 58001
+possible problem with serverHost badhost
+possible problem with serverPort 59854
+./client: can't form address from badhost 59854
+
+# bad port - ASSUMES port 99999 is unusable
+./client $HOSTNAME 99999 $NAME
+START OF LOG
+client on port 37572
+possible problem with serverHost localhost
+possible problem with serverPort 99999
+./client: can't form address from localhost 99999
+==19374== Memcheck, a memory error detector
+==19374== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==19374== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==19374== Command: ./client localhost 59854 jordan
+==19374== 
+START OF LOG
+client on port 43940
+interactive player mode; name 'jordan'
+OK message received: OK b
+GRID message received: GRID 21 79
+GOLD message received: GOLD 0 0 281
+QUIT message received: QUIT Thanks for playing!
+END OF LOG
+==19374== 
+==19374== HEAP SUMMARY:
+==19374==     in use at exit: 133,230 bytes in 188 blocks
+==19374==   total heap usage: 599 allocs, 411 frees, 355,642 bytes allocated
+==19374== 
+==19374== 8 bytes in 1 blocks are still reachable in loss record 1 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E512C5: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 15 bytes in 1 blocks are still reachable in loss record 2 of 31
+==19374==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x53289D9: strdup (strdup.c:42)
+==19374==    by 0x507260D: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 23 bytes in 1 blocks are still reachable in loss record 3 of 31
+==19374==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x53289D9: strdup (strdup.c:42)
+==19374==    by 0x506FAC9: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x506FDBC: _nc_first_db (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50787AD: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374== 
+==19374== 35 bytes in 1 blocks are still reachable in loss record 4 of 31
+==19374==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x50705B4: _nc_home_terminfo (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x506FDA6: _nc_first_db (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50787AD: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374== 
+==19374== 46 bytes in 1 blocks are still reachable in loss record 5 of 31
+==19374==    at 0x4C33D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x5070292: _nc_doalloc (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5077E66: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374== 
+==19374== 48 bytes in 1 blocks are still reachable in loss record 6 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x506FEBB: _nc_first_db (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50787AD: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 66 bytes in 1 blocks are still reachable in loss record 7 of 31
+==19374==    at 0x4C33D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x5070292: _nc_doalloc (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5074E63: tparm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4DFD2: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4E8B4: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 78 bytes in 1 blocks are still reachable in loss record 8 of 31
+==19374==    at 0x4C33D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x5070292: _nc_doalloc (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5077E97: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374== 
+==19374== 103 bytes in 1 blocks are still reachable in loss record 9 of 31
+==19374==    at 0x4C33D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x5070292: _nc_doalloc (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50737F3: _nc_tparm_analyze (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5073B4D: tparm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E46FB3: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E481A7: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E58671: doupdate (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E500F7: wrefresh (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x10A14F: setupGrid (client.c:348)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374== 
+==19374== 104 bytes in 1 blocks are still reachable in loss record 10 of 31
+==19374==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x506FE23: _nc_first_db (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50787AD: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 112 bytes in 1 blocks are still reachable in loss record 11 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E4ED78: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4EF90: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E516C6: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 112 bytes in 1 blocks are still reachable in loss record 12 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E4ED78: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4EF90: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E516E7: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 112 bytes in 1 blocks are still reachable in loss record 13 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E4ED78: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4EF90: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E51791: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 128 bytes in 1 blocks are still reachable in loss record 14 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E51292: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 208 bytes in 1 blocks are still reachable in loss record 15 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x50725BA: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 208 bytes in 1 blocks are still reachable in loss record 16 of 31
+==19374==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E44148: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E58B0D: doupdate (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E500F7: wrefresh (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x10A243: showGrid (client.c:370)
+==19374==    by 0x109DE2: handleEvent (client.c:270)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 256 bytes in 1 blocks are still reachable in loss record 17 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E472DB: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E473DC: start_color (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FDF: setupGrid (client.c:317)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 416 bytes in 1 blocks are still reachable in loss record 18 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E44AFD: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E44007: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E58B0D: doupdate (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E500F7: wrefresh (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x10A243: showGrid (client.c:370)
+==19374==    by 0x109DE2: handleEvent (client.c:270)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 416 bytes in 1 blocks are still reachable in loss record 19 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E44F26: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E44007: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E58B0D: doupdate (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E500F7: wrefresh (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x10A243: showGrid (client.c:370)
+==19374==    by 0x109DE2: handleEvent (client.c:270)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 528 bytes in 1 blocks are still reachable in loss record 20 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x5078095: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374== 
+==19374== 771 bytes in 1 blocks are still reachable in loss record 21 of 31
+==19374==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x5078188: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374== 
+==19374== 1,024 bytes in 1 blocks are still reachable in loss record 22 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E51273: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 1,576 bytes in 1 blocks are still reachable in loss record 23 of 31
+==19374==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x507775A: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374== 
+==19374== 1,672 bytes in 1 blocks are still reachable in loss record 24 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E5124E: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 2,496 bytes in 3 blocks are still reachable in loss record 25 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E59AF8: wresize (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E59452: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E5972F: resize_term (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E59803: resizeterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x50721FB: _nc_update_screensize (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4A3AF: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4A946: wgetch (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x10A165: setupGrid (client.c:350)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374== 
+==19374== 2,544 bytes in 1 blocks are still reachable in loss record 26 of 31
+==19374==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E44ABB: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E44007: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E58B0D: doupdate (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E500F7: wrefresh (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x10A243: showGrid (client.c:370)
+==19374==    by 0x109DE2: handleEvent (client.c:270)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 3,780 bytes in 1 blocks are still reachable in loss record 27 of 31
+==19374==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E513F0: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 3,824 bytes in 1 blocks are still reachable in loss record 28 of 31
+==19374==    at 0x4C33D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x5070292: _nc_doalloc (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5077EB5: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FD0: setupGrid (client.c:314)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374== 
+==19374== 4,265 bytes in 1 blocks are still reachable in loss record 29 of 31
+==19374==    at 0x4C33D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x5070292: _nc_doalloc (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E543EF: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4F9EE: vwprintw (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4FC51: mvprintw (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x10A32C: showGold (client.c:389)
+==19374==    by 0x109F58: handleEvent (client.c:294)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 7,168 bytes in 1 blocks are still reachable in loss record 30 of 31
+==19374==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E475F1: start_color (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x109FDF: setupGrid (client.c:317)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374==    by 0x109800: main (client.c:125)
+==19374== 
+==19374== 101,088 bytes in 156 blocks are still reachable in loss record 31 of 31
+==19374==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19374==    by 0x4E59D6F: wresize (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E59452: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E5972F: resize_term (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E59803: resizeterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x50721FB: _nc_update_screensize (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19374==    by 0x4E4A3AF: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x4E4A946: wgetch (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19374==    by 0x10A165: setupGrid (client.c:350)
+==19374==    by 0x109EED: handleEvent (client.c:286)
+==19374==    by 0x10B0B8: message_loop (message.c:387)
+==19374==    by 0x109B6B: game (client.c:214)
+==19374== 
+==19374== LEAK SUMMARY:
+==19374==    definitely lost: 0 bytes in 0 blocks
+==19374==    indirectly lost: 0 bytes in 0 blocks
+==19374==      possibly lost: 0 bytes in 0 blocks
+==19374==    still reachable: 133,230 bytes in 188 blocks
+==19374==         suppressed: 0 bytes in 0 blocks
+==19374== 
+==19374== For counts of detected and suppressed errors, rerun with: -v
+==19374== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==19586== Memcheck, a memory error detector
+==19586== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==19586== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==19586== Command: ./client localhost 59854
+==19586== 
+START OF LOG
+client on port 56744
+spectate
+GRID message received: GRID 21 79
+GOLD message received: GOLD 0 0 281
+Play at  
+QUIT message received: QUIT Thanks for playing!
+END OF LOG
+==19586== 
+==19586== HEAP SUMMARY:
+==19586==     in use at exit: 134,148 bytes in 188 blocks
+==19586==   total heap usage: 276 allocs, 88 frees, 169,444 bytes allocated
+==19586== 
+==19586== 8 bytes in 1 blocks are still reachable in loss record 1 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E512C5: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 15 bytes in 1 blocks are still reachable in loss record 2 of 35
+==19586==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x53289D9: strdup (strdup.c:42)
+==19586==    by 0x507260D: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 23 bytes in 1 blocks are still reachable in loss record 3 of 35
+==19586==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x53289D9: strdup (strdup.c:42)
+==19586==    by 0x506FAC9: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x506FDBC: _nc_first_db (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50787AD: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586== 
+==19586== 35 bytes in 1 blocks are still reachable in loss record 4 of 35
+==19586==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x50705B4: _nc_home_terminfo (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x506FDA6: _nc_first_db (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50787AD: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586== 
+==19586== 46 bytes in 1 blocks are still reachable in loss record 5 of 35
+==19586==    at 0x4C33D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x5070292: _nc_doalloc (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5077E66: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586== 
+==19586== 48 bytes in 1 blocks are still reachable in loss record 6 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x506FEBB: _nc_first_db (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50787AD: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 66 bytes in 1 blocks are still reachable in loss record 7 of 35
+==19586==    at 0x4C33D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x5070292: _nc_doalloc (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5074E63: tparm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4DFD2: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E8B4: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 78 bytes in 1 blocks are still reachable in loss record 8 of 35
+==19586==    at 0x4C33D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x5070292: _nc_doalloc (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5077E97: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586== 
+==19586== 103 bytes in 1 blocks are still reachable in loss record 9 of 35
+==19586==    at 0x4C33D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x5070292: _nc_doalloc (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50737F3: _nc_tparm_analyze (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5073B4D: tparm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E46FB3: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E481A7: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E58671: doupdate (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E500F7: wrefresh (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109725: clearStatus (client.c:102)
+==19586==    by 0x109633: printStatus (client.c:88)
+==19586==    by 0x10A3A7: showGold (client.c:396)
+==19586==    by 0x109F58: handleEvent (client.c:294)
+==19586== 
+==19586== 104 bytes in 1 blocks are still reachable in loss record 10 of 35
+==19586==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x506FE23: _nc_first_db (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50787AD: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 112 bytes in 1 blocks are still reachable in loss record 11 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E4ED78: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4EF90: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E516C6: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 112 bytes in 1 blocks are still reachable in loss record 12 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E4ED78: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4EF90: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E516E7: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 112 bytes in 1 blocks are still reachable in loss record 13 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E4ED78: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4EF90: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E51791: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 128 bytes in 1 blocks are still reachable in loss record 14 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E51292: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 208 bytes in 1 blocks are still reachable in loss record 15 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x50725BA: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 208 bytes in 1 blocks are still reachable in loss record 16 of 35
+==19586==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E44148: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E58B0D: doupdate (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E500F7: wrefresh (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x1096CB: printStatus (client.c:95)
+==19586==    by 0x10A3A7: showGold (client.c:396)
+==19586==    by 0x109F58: handleEvent (client.c:294)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 256 bytes in 1 blocks are still reachable in loss record 17 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E472DB: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E473DC: start_color (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FDF: setupGrid (client.c:317)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 416 bytes in 1 blocks are still reachable in loss record 18 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E44AFD: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E44007: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E58B0D: doupdate (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E500F7: wrefresh (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x1096CB: printStatus (client.c:95)
+==19586==    by 0x10A3A7: showGold (client.c:396)
+==19586==    by 0x109F58: handleEvent (client.c:294)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 416 bytes in 1 blocks are still reachable in loss record 19 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E44F26: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E44007: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E58B0D: doupdate (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E500F7: wrefresh (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x1096CB: printStatus (client.c:95)
+==19586==    by 0x10A3A7: showGold (client.c:396)
+==19586==    by 0x109F58: handleEvent (client.c:294)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 528 bytes in 1 blocks are still reachable in loss record 20 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x5078095: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586== 
+==19586== 771 bytes in 1 blocks are still reachable in loss record 21 of 35
+==19586==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x5078188: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586== 
+==19586== 832 bytes in 1 blocks are still reachable in loss record 22 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E4ED96: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4EF90: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E516C6: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 832 bytes in 1 blocks are still reachable in loss record 23 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E4ED96: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4EF90: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E516E7: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 832 bytes in 1 blocks are still reachable in loss record 24 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E4ED96: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4EF90: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E51791: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 1,024 bytes in 1 blocks are still reachable in loss record 25 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E51273: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 1,576 bytes in 1 blocks are still reachable in loss record 26 of 35
+==19586==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x507775A: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586== 
+==19586== 1,672 bytes in 1 blocks are still reachable in loss record 27 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E5124E: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 2,544 bytes in 1 blocks are still reachable in loss record 28 of 35
+==19586==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E44ABB: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E44007: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E58B0D: doupdate (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E500F7: wrefresh (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x1096CB: printStatus (client.c:95)
+==19586==    by 0x10A3A7: showGold (client.c:396)
+==19586==    by 0x109F58: handleEvent (client.c:294)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 3,824 bytes in 1 blocks are still reachable in loss record 29 of 35
+==19586==    at 0x4C33D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x5070292: _nc_doalloc (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5077EB5: _nc_read_termtype (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50782FC: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50784E6: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50787D0: _nc_read_entry (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x5072288: ??? (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x50725D1: _nc_setupterm (in /lib/x86_64-linux-gnu/libtinfo.so.5.9)
+==19586==    by 0x4E4E6D7: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586== 
+==19586== 4,265 bytes in 1 blocks are still reachable in loss record 30 of 35
+==19586==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E543EF: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4F9EE: vwprintw (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4FC51: mvprintw (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x10A2F3: showGold (client.c:387)
+==19586==    by 0x109F58: handleEvent (client.c:294)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 4,698 bytes in 1 blocks are still reachable in loss record 31 of 35
+==19586==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E513F0: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 7,168 bytes in 1 blocks are still reachable in loss record 32 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E475F1: start_color (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FDF: setupGrid (client.c:317)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 33,696 bytes in 52 blocks are still reachable in loss record 33 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E4EFCC: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E516C6: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 33,696 bytes in 52 blocks are still reachable in loss record 34 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E4EFCC: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E516E7: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== 33,696 bytes in 52 blocks are still reachable in loss record 35 of 35
+==19586==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19586==    by 0x4E4EFCC: newwin (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E51791: ??? (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4E71A: newterm (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x4E4AFF2: initscr (in /lib/x86_64-linux-gnu/libncurses.so.5.9)
+==19586==    by 0x109FD0: setupGrid (client.c:314)
+==19586==    by 0x109EED: handleEvent (client.c:286)
+==19586==    by 0x10B0B8: message_loop (message.c:387)
+==19586==    by 0x109B6B: game (client.c:214)
+==19586==    by 0x109800: main (client.c:125)
+==19586== 
+==19586== LEAK SUMMARY:
+==19586==    definitely lost: 0 bytes in 0 blocks
+==19586==    indirectly lost: 0 bytes in 0 blocks
+==19586==      possibly lost: 0 bytes in 0 blocks
+==19586==    still reachable: 134,148 bytes in 188 blocks
+==19586==         suppressed: 0 bytes in 0 blocks
+==19586== 
+==19586== For counts of detected and suppressed errors, rerun with: -v
+==19586== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
